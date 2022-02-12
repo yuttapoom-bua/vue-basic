@@ -1,30 +1,66 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+  <header>
+    <h1>ระบบจัดการข้อมูลพนักงาน</h1>
+  </header>
+  <FormComponent @save="insertEmployee" />
+  <section class="employee-content" v-if="employee.length > 0">
+    <h2>ข้อมูลพนักงาน</h2>
+    <ListData :employee="employee" />
+  </section>
 </template>
 
+<script>
+    import ListData from './components/ListData.vue'
+    import FormComponent from './components/FormComponent.vue'
+    export default{
+      name: "app",
+      components: {
+        ListData, FormComponent
+      },
+      data(){
+        return {
+          employee: []
+        }
+      },
+      methods:{
+        insertEmployee(data){
+          this.employee.push(data)
+        }
+      }
+
+    }
+
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+*{
+  box-sizing: border-box;
+}
+body{
+  margin: 0;
+}
+header{
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  margin: 3rem;
+  border-radius: 10px;
+  padding: 1rem;
+  background-color: salmon;
+  color: #FFF;
   text-align: center;
-  color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
+.employee-content{
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  margin: 3rem;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.employee-content h2{
+  font-size: 2rem;
+  border-bottom: 4px solid #CCC;
+  color: slateblue;
+  margin: 0 0 1rem 0;
 }
 </style>
